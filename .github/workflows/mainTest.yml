@@ -3,9 +3,9 @@ on: [push]
 
 # Environment variables available to all jobs and steps in this workflow
 env:
-  REGISTRY_NAME: GithubActionsTesting
-  CLUSTER_NAME: GithubActionsDeploymentTestingCluster
-  CLUSTER_RESOURCE_GROUP: GitHub-actions-testing-rg
+  REGISTRY_NAME: githubactionstesting
+  CLUSTER_NAME: githubactionsdeploymenttestingcluster
+  CLUSTER_RESOURCE_GROUP: gitHub-actions-testing-rg
   APP_NAME: HelloAspnetCore
   
 jobs:
