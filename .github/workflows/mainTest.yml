@@ -3,9 +3,9 @@ on: [push]
 
 # Environment variables available to all jobs and steps in this workflow
 env:
-  REGISTRY_NAME: GithubActionsTesting
-  CLUSTER_NAME: GithubActionsDeploymentTestingCluster
-  CLUSTER_RESOURCE_GROUP: GitHub-actions-testing-rg
+  REGISTRY_NAME: githubactionstesting
+  CLUSTER_NAME: githubactionsdeploymenttestingcluster
+  CLUSTER_RESOURCE_GROUP: gitHub-actions-testing-rg
   APP_NAME: HelloAspnetCore
   
 jobs:
@@ -20,6 +20,20 @@ jobs:
         login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
         username: ${{ secrets.REGISTRY_USERNAME }} 
         password: ${{ secrets.REGISTRY_PASSWORD }}
+    
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v3
+      with:
+        images: ghcr.io/${{ github.repository }}
+        tags: latest
+
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
     
     # Container build and push to a Azure Container Registry (ACR)
     - run: |
